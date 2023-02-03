@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -20,4 +20,15 @@ export class HeroesService {
   getHeroePorId(id: string): Observable<Heroe> {
     return this.http.get<Heroe>(`${this.baseuUl}/heroes/${id}`);
   }
+
+  getSugerencia(termino: string): Observable<Heroe[]> {
+    const params = new HttpParams()
+      .set("q", termino)
+      .set("_limit", "6");
+
+    return this.http.get<Heroe[]>(`${this.baseuUl}/heroes`, {
+      params
+    });
+  }
+
 }
