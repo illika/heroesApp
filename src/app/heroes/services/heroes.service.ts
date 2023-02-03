@@ -31,12 +31,16 @@ export class HeroesService {
     });
   }
 
-  postHeroe(heroe: Heroe): Observable<Heroe> {    
+  postHeroe(heroe: Heroe): Observable<Heroe> {
     return this.http.post<Heroe>(`${this.baseuUl}/heroes`, heroe);
   }
 
-  putHeroe(heroe: Heroe): Observable<Heroe> {    
+  putHeroe(heroe: Heroe): Observable<Heroe> {
     return this.http.put<Heroe>(`${this.baseuUl}/heroes/${heroe.id}`, heroe);
+  }
+
+  deleteHeroe(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseuUl}/heroes/${id}`);
   }
 
 }

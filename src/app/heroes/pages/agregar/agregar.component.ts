@@ -63,4 +63,9 @@ export class AgregarComponent implements OnInit {
       });
   }
 
+  eliminar() {
+    this.heroesService.deleteHeroe(this.heroe.id!).subscribe(console.log);
+    this.router.navigate(["/heroes"]);
+  }
+
 }
