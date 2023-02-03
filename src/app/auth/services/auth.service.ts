@@ -25,4 +25,8 @@ export class AuthService {
       })
       );
   }
+
+  logout() {
+    this._user = undefined;
+  }
 }

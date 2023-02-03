@@ -17,7 +17,11 @@ export class LoginComponent {
     this.authService.login().subscribe(resp => {
       if (resp.id) this.router.navigate(["/heroes"]);
     })
-    //this.router.navigate(["/heroes"]);
+  }
+
+  sinLogin() {
+    this.authService.logout();
+    this.router.navigate(["./heroes"]);
   }
 
 }
