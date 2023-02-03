@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { Heroe, Publisher } from '../../interfaces/heroe.interface';
@@ -41,7 +42,8 @@ export class AgregarComponent implements OnInit {
 
   constructor(private heroesService: HeroesService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if (this.router.url.includes("editar")) {
@@ -56,9 +58,13 @@ export class AgregarComponent implements OnInit {
     if (this.heroe.superhero.trim().length === 0) return;
 
     if (this.heroe.id)
-      this.heroesService.putHeroe(this.heroe).subscribe(console.log);
+      this.heroesService.putHeroe(this.heroe).subscribe((heroe) => {
+        this.mostrarSnackBar("Registro Actualizado");
+        this.heroe = heroe
+      });
     else
       this.heroesService.postHeroe(this.heroe).subscribe(heroe => {
+        this.mostrarSnackBar("Registro Creado");
         this.router.navigate(["/heroes/editar", heroe.id]);
       });
   }
@@ -66,6 +72,12 @@ export class AgregarComponent implements OnInit {
   eliminar() {
     this.heroesService.deleteHeroe(this.heroe.id!).subscribe(console.log);
     this.router.navigate(["/heroes"]);
+  }
+
+  mostrarSnackBar(mensaje: string) {
+    this.snackBar.open(mensaje, 'Ok', {
+      duration: 2500
+    });
   }
 
 }
