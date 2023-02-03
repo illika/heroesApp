@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { Heroe, Publisher } from '../../interfaces/heroe.interface';
 import { HeroesService } from '../../services/heroes.service';
 
@@ -30,14 +32,25 @@ export class AgregarComponent implements OnInit {
     alt_img: "",
   };
 
-  constructor(private heroesService: HeroesService) { }
+  constructor(private heroesService: HeroesService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
+    this.activatedRoute.params.pipe(
+      switchMap(({ id }) => this.heroesService.getHeroePorId(id))
+    ).subscribe((heroe) => this.heroe = heroe);
   }
 
   guardar() {
     if (this.heroe.superhero.trim().length === 0) return;
-    this.heroesService.postHeroe(this.heroe).subscribe(console.log);
+
+    if (this.heroe.id)
+      this.heroesService.putHeroe(this.heroe).subscribe(console.log);
+    else
+      this.heroesService.postHeroe(this.heroe).subscribe(heroe => {
+        this.router.navigate(["/heroes/editar", heroe.id]);
+      });
   }
 
 }
