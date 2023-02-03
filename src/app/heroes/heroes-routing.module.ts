@@ -16,7 +16,7 @@ const routes: Routes = [
         component: ListadoComponent
       },
       {
-        path: "agergar",
+        path: "agregar",
         component: AgregarComponent
       },
       {
