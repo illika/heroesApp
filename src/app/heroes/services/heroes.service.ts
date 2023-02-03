@@ -31,4 +31,10 @@ export class HeroesService {
     });
   }
 
+  postHeroe(heroe: Heroe): Observable<Heroe> {
+    
+
+    return this.http.post<Heroe>(`${this.baseuUl}/heroes`, heroe);
+  }
+
 }
