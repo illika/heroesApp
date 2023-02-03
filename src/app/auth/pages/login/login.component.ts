@@ -20,7 +20,6 @@ export class LoginComponent {
   }
 
   sinLogin() {
-    this.authService.logout();
     this.router.navigate(["./heroes"]);
   }
 
