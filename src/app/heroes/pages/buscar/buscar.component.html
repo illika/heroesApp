@@ -3,23 +3,22 @@
         <h1>Buscador de Heroes</h1>
         <mat-divider></mat-divider>
     </div>
-    <div>
+    <div fxLayout="column">
         <h3>Buscador</h3>
-        
+
         <mat-form-field class="example-full-width" appearance="fill">
-            <input type="text"
-                   placeholder="busqueda"
-                   matInput
-                   [(ngModel)] = "busqueda"
-                   [matAutocomplete]="auto"
-                   (input)="buscar()">
-            <mat-autocomplete #auto="matAutocomplete"
-            autoActiveFirstOption (optionSelected)="opcionSeleccionada($event)">
-              <mat-option *ngFor="let heroe of heroes" [value]="heroe">
-                {{heroe.superhero}}
-              </mat-option>
+            <input type="text" placeholder="busqueda" matInput [(ngModel)]="busqueda" [matAutocomplete]="auto"
+                (input)="buscar()">
+            <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption
+                (optionSelected)="opcionSeleccionada($event)">
+                <mat-option *ngFor="let heroe of heroes" [value]="heroe">
+                    {{heroe.superhero}}
+                </mat-option>
+                <mat-option *ngIf="heroes.length == 0 && busqueda.length > 0" value="">
+                    No se encontro nada con el termnino {{busqueda}}
+                </mat-option>
             </mat-autocomplete>
-          </mat-form-field>
+        </mat-form-field>
     </div>
 
     <div>
